@@ -1,0 +1,96 @@
+* Chapter 6: Secret Life of Objects
+**  Encapsulation
+
+*** Main Idea
+
+In this section we gloss over how one might achieve some OOP
+concepts in JS. For instance, interfaces are defined in objects with 
+properties and  methods. 
+
+Code which is internal to the object in other words private cannot be
+explicitly enforced in JS, not yet at least. Thus it is recommended
+that developers properly document their interfaces in order to communicate 
+with others how to properly use the interface. Also Declaring properties
+by appending __ is a common method used to indicate that something
+is private. 
+
+** Methods
+
+*** Main Idea
+
+We begin this section by defining a method as a property of an object,
+which holds a function value. For example.
+
+
+#+Name: Method Example
+#+Begin_SRC js
+
+let obj = {};
+
+obj.speak = function(line) {
+    console.log(`The Caller says '${line}'`);
+};
+
+obj.speak("Hey There");
+// -> The Caller says 'Hey There'
+#+END_SRC
+
+Methods are generally called to do something to the object on which
+they were called upon. Consequently when a function is called as a
+method, in other words called by looking up a property and immediately
+calling it, a reference to the object is implicitly passed to the
+function and can be accessed via the 'this' keyword. For example.
+
+
+#+Name: Accessing an object's method. 
+#+Begin_SRC js
+
+function speak(line) {
+    console.log(`The ${this.color} rabbit says '${line}'`);
+}
+
+let rabbit = {
+    color: "white",
+    speak
+};
+
+rabbit.speak("I'm Late!");
+// -> The rabbit says 'I'm Late'
+#+END_SRC
+
+
+If you ever wanted to call speak and explicitly pass this to it you
+could achieve the same effect by using a functions call method. which
+takes in a reference to 'this' as its first value.
+
+#+Name: Explicitly Passing this to methods
+#+BEGIN_SRC js
+
+speak.call(rabbit, "I'm Late!");
+// -> The rabbit says 'I'm Late' 
+#+END_SRC
+
+
+Note you cannot refer to the wrapping object with 'this', when inside a
+regular function defined with the function keyword. In order to bypass
+this you should use arrow functions, which do not instantiate their own
+'this', unlike regular functions. Keeping that in mind we can now do the
+following. 
+
+#+Name: Accessing the wrapping this, via arrow functions. 
+#+BEGIN_SRC js
+
+function normalize() {
+    console.log(this.coords.map(n => n / this.length));
+}
+
+normalize.call({cords : [0, 2, 3], length: 5});
+// -> [0, 0.4, 0.6]
+#+END_SRC
+
+If we had written the argument to map using the function keyword, the
+code would not work. 
+
+** Prototypes
+
+
