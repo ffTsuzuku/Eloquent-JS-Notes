@@ -1,7 +1,11 @@
+
+* Chapter 1 Values, Types, and Operators
+* Chapter 2 Program Structure
+* Chapter 3 Functions
+* Chapter 4 Data Structure: Objects and Arrays
+* Chapter 5: Higher-Order Functions
 * Chapter 6: Secret Life of Objects
 **  Encapsulation
-
-*** Main Idea
 
 In this section we gloss over how one might achieve some OOP
 concepts in JS. For instance, interfaces are defined in objects with 
@@ -15,9 +19,6 @@ by appending __ is a common method used to indicate that something
 is private. 
 
 ** Methods
-
-*** Main Idea
-
 We begin this section by defining a method as a property of an object,
 which holds a function value. For example.
 
@@ -92,5 +93,34 @@ If we had written the argument to map using the function keyword, the
 code would not work. 
 
 ** Prototypes
+While objects are composed of properties, they also contain prototypes.
+A prototype is an object, which is used as a source of fallback 
+properties. In other words, when a property is not found within an 
+object, its prototype will be searched, and if that fails the prototypes
+prototype will be searched, and so on and so forth. 
+
+By default prototypes provide some some basic methods, such as toString()
+
+#+Name: Accessing an propertyless objects, prototype. 
+#+Begin_SRC js
+
+let empty = {};
+
+console.log(empty.toString);
+// -> function toString(){..}
+console.log(x.toString());
+// -> [object Object]
+
+#+END_SRC
+
+Here we can see that our empty object, contains no properties. So when
+we call its toString() method, javascript defaults back to its prototype
+to see if its declared there, which it is. 
+
+This begs the question, what is the prototype of the our empty object?
+Its the ancestral prototype, which is give to almost all objects, 
+~Object.prototype~. 
+
+
 
 
