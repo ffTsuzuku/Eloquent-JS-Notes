@@ -121,6 +121,17 @@ This begs the question, what is the prototype of the our empty object?
 Its the ancestral prototype, which is give to almost all objects, 
 ~Object.prototype~. 
 
+In order to get the prototype of an object, we can make use of an
+object's ~getPrototypeOf~  method. 
 
+#+Name: Getting the prototype of an object. 
+#+Begin_SRC js
+
+console.log(Object.getPrototypeOf({}) == Object.prototype);
+// -> true
+console.log(Object.getPrototypeOf(Object.prototype));
+// -> null
+
+#+END_SRC
 
 
