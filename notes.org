@@ -134,4 +134,27 @@ console.log(Object.getPrototypeOf(Object.prototype));
 
 #+END_SRC
 
+You can also create objects and specify the prototype they should use
+with the ~Object.create~ method. 
+
+#+Name: Specifying an object's prototype
+#+Begin_SRC js
+
+let protoAnimal = {
+  speak(noise) {
+    console.log(noise);
+  }
+};
+
+let dog = Object.create(protoAnimal);
+dog.speak("Bow Wow");
+// -> Bow Wow
+
+#+END_SRC
+
+Note we do not explicitly state the property name speak in our 
+protoAnimal object, this is a neat shorthand feature in javascript
+where the a methods name is defaulted to the property name as well.
+
+** Classes
 
