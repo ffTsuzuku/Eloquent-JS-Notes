@@ -157,4 +157,70 @@ protoAnimal object, this is a neat shorthand feature in javascript
 where the a methods name is defaulted to the property name as well.
 
 ** Classes
+Javascript's prototype system provides a somewhat informal approach
+to implementing the OOP concept known as classes. Prototypes provide
+a way to define properties which should be used by all instances of
+that prototype (class). 
+
+So in order to make an instance of a class, you need to make sure your
+object is deriving from the correct prototype, and also ensure that
+the object itself has the properties that are required by the derived
+class. This is exactly what a constructor function does. 
+
+#+Name: Constructor functions. 
+#+Begin_SRC js
+
+let protoRabbit = {
+  speak(line) {
+    console.log(`The ${this.type} rabbit says '${line}'`);
+  }
+}; 
+
+function makeRabbit(type) {
+  let rabbit = Object.create(protoRabbit);
+  rabbit.type = type;
+  return rabbit;
+}
+
+#+End_SRC
+
+In the example above we define a prototype object protoRabbit, then
+in our constructor function makeRabbit we ensure that we create an
+object which derives from protoRabbit, and set the type property 
+which is used by the protoRabbit speak method. 
+
+We can use a functions prototype to accomplish the same thing, but
+in a less verbose manner. If you call a function with the  ~new~ 
+keyword, then the function is treated as a constructor.  This means
+that an object with the proper prototype is automatically created, 
+bound to ~this~ in the function, and returned at the end of the
+function. 
+
+The constructor function uses its own prototype when creating objects.
+
+
+#+Name: Using function prototypes to create objects.  
+#+Begin_SRC JS
+
+function Rabbit(type) {
+  this.type = type;
+}
+
+Rabbit.prototype.speak = function(line) {
+  console.log(`The ${this.type} rabbit says '${line}'`);
+};
+
+let weirdRabbit = new Rabbit("weird");
+
+#+END_SRC
+
+Here we declare the Rabbit funtion, which will act as a constructor
+when called with ~new~. Then we allow the prototype of the Rabbit
+function a speak method, and lastly we instantiate a new instance 
+of rabbit. 
+
+The main differentiation here is that we're using a function 
+prototype, which all methods by default have. In the case of functions
+the prototype is an empty object, which derives from Object.prototype.
+
 
